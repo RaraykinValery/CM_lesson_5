@@ -1,0 +1,243 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200');
+
+:root {
+  --md-sys-color-surface-container: light-dark(rgb(236, 238, 244), rgb(29, 32, 36));
+  --md-sys-color-secondary-container: light-dark(rgb(215, 227, 248), rgb(59, 72, 88));
+  --md-sys-color-on-secondary-container: light-dark(rgb(16, 28, 43), rgb(215, 227, 248));
+  --md-sys-color-on-surface-variant: light-dark(rgb(67, 71, 78), rgb(195, 198, 207));
+  --md-sys-color-outline: light-dark(rgb(115, 119, 127), rgb(141, 145, 153));
+  --md-sys-color-on-surface: light-dark(rgb(25, 28, 32), rgb(225, 226, 232));
+  --md-sys-color-error: light-dark(rgb(186, 26, 26), rgb(255, 180, 171));
+  --md-sys-color-on-error: light-dark(rgb(255, 255, 255), rgb(105, 0, 5));
+
+  color-scheme: light dark;
+}
+
+$breakpoint-tablet: 1200px;
+$breakpoint-phone: 800px;
+
+@mixin typography-general {
+  font-family: "Roboto", sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 20px;
+  letter-spacing: 0.1px;
+}
+
+@mixin typography-error-label {
+  font-family: "Roboto", sans-serif;
+  font-weight: 500;
+  font-size: 11px;
+  line-height: 16px;
+  letter-spacing: 0.5px;
+}
+
+@mixin state-layer-on-hover {
+  &:hover {
+    --_state-layer-display: block;
+    color: var(--md-sys-color-on-surface);
+  }
+
+  &::after {
+    content: "";
+    display: var(--_state-layer-display);
+    position: absolute;
+    inset: 0;
+    background-color: currentColor;
+    border-radius: 28px;
+    opacity: 0.08;
+    z-index: -1;
+  }
+
+}
+
+.material-symbols-outlined {
+  font-variation-settings:
+    'FILL' var(--_icon-filled, 0),
+    'wght' 400,
+    'GRAD' 0,
+    'opsz' 24
+}
+
+
+html, body {
+  height: 100%;
+}
+
+body {
+  display: grid;
+  grid-template-columns: 360px 1fr;
+  margin: 0;
+
+  @media (max-width: #{$breakpoint-tablet}) {
+    grid-template-columns: 80px 1fr;
+  }
+
+  @media (max-width: #{$breakpoint-phone}) {
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 80px;
+  }
+}
+
+.navigation {
+  @include typography-general();
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  color: var(--md-sys-color-on-surface-variant);
+  background-color: var(--md-sys-color-surface-container);
+  height: 100%;
+  padding-inline: 12px;
+  padding-block: 24px;
+
+  @media (max-width: #{$breakpoint-tablet}) {
+    padding: 0px;
+    justify-content: center;
+  }
+
+  @media (max-width: #{$breakpoint-phone}) {
+    grid-row: -2/-1;
+    padding-block: 12px 16px;
+  }
+
+  &__headline {
+    @include typography-general();
+    margin: 0;
+    padding-inline: 16px;
+
+    @media (max-width: #{$breakpoint-tablet}) {
+      display: none;
+    }
+  }
+
+  .items-container {
+    display: flex;
+    flex-direction: column;
+
+    @media (max-width: #{$breakpoint-tablet}) {
+      gap: 12px;
+    }
+
+    @media (max-width: #{$breakpoint-phone}) {
+      flex-direction: row;
+      justify-content: space-around;
+    }
+
+    &--optional {
+      @media (max-width: #{$breakpoint-tablet}) {
+        display: none;
+      }
+    }
+
+    .item {
+      --_state-layer-display: none;
+      height: 56px;
+      padding-inline: 16px 24px;
+      display: flex;
+      gap: 12px;
+      border-radius: 28px;
+      align-items: center;
+      isolation: isolate;
+      position: relative;
+
+      @media (max-width: #{$breakpoint-tablet}) {
+        flex-direction: column;
+        padding: 0;
+        gap: 4px;
+
+        &--has-error-badge::after {
+          content: "";
+          position: absolute;
+          width: 6px;
+          aspect-ratio: 1;
+          border-radius: 3px;
+          top: 0;
+          right: calc(50% - 17px);
+          background-color: var(--md-sys-color-error);
+        }
+
+      }
+
+      @media (min-width: #{$breakpoint-tablet}) {
+        cursor: pointer;
+        @include state-layer-on-hover();
+      }
+
+      &--active {
+        --_icon-filled: 1;
+
+        @media (min-width: #{$breakpoint-tablet}) {
+          background-color: var(--md-sys-color-secondary-container);
+          color: var(--md-sys-color-on-secondary-container);
+
+          &:hover {
+            color: var(--md-sys-color-on-secondary-container);
+          }
+        }
+
+        @media (max-width: #{$breakpoint-tablet}) {
+          color: var(--md-sys-color-on-surface);
+
+          .item__icon {
+            background-color: var(--md-sys-color-secondary-container);
+            color: var(--md-sys-color-on-secondary-container);
+          }
+        }
+      }
+
+      &__icon {
+        @media (max-width: #{$breakpoint-tablet}) {
+          @include state-layer-on-hover();
+          cursor: pointer;
+          display: grid;
+          place-items: center;
+          border-radius: 16px;
+          width: 56px;
+          height: 32px;
+          position: relative;
+          isolation: isolate;
+        }
+
+        @media (max-width: #{$breakpoint-phone}) {
+          width: 64px;
+        }
+      }
+
+      &__badge {
+        margin-left: auto;
+
+        @media (max-width: #{$breakpoint-tablet}) {
+          display: none;
+        }
+
+        &--shown {
+          @media (max-width: #{$breakpoint-tablet}) {
+            @include typography-error-label();
+            position: absolute;
+            display: grid;
+            place-items: center;
+            width: 16px;
+            aspect-ratio: 1;
+            border-radius: 8px;
+            background-color: var(--md-sys-color-error);
+            color: var(--md-sys-color-on-error);
+            top: 0;
+            left: 50%;
+          }
+        }
+      }
+
+    }
+
+    .devider {
+      height: 1px;
+      background-color: var(--md-sys-color-outline);
+
+      @media (max-width: #{$breakpoint-tablet}) {
+        display: none;
+      }
+    }
+  }
+}

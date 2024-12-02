@@ -1,11 +1,50 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Document</title>
+	<title>Navigation drawer, rail, bar</title>
 </head>
-<body>
 
+<body>
+	<nav class="navigation">
+		<h1 class="navigation__headline">Mail</h1>
+		<div class="items-container">
+			<div class="item item--active">
+				<span class="item__icon material-symbols-outlined">inbox</span>
+				<span class="item__label-text">Inbox</span>
+				<span class="item__badge item__badge--shown">5</span>
+			</div>
+			<div class="item">
+				<span class="item__icon material-symbols-outlined">outbox</span>
+				<span class="item__label-text">Outbox</span>
+				<span class="item__badge"></span>
+			</div>
+			<div class="item item--has-error-badge">
+				<span class="item__icon material-symbols-outlined">favorite</span>
+				<span class="item__label-text">Favorites</span>
+				<span class="item__badge"></span>
+			</div>
+			<div class="item">
+				<span class="item__icon material-symbols-outlined">delete</span>
+				<span class="item__label-text">Trash</span>
+				<span class="item__badge"></span>
+			</div>
+			<div class="devider"></div>
+		</div>
+		<h1 class="navigation__headline">Labels</h1>
+		<div class="items-container items-container--optional">
+			<div class="item">
+				<span class="item__icon material-symbols-outlined">circle</span>
+				<span class="item__label-text">Label</span>
+			</div>
+			<div class="item">
+				<span class="item__icon material-symbols-outlined">change_history</span>
+				<span class="item__label-text">Label</span>
+			</div>
+		</div>
+	</nav>
 </body>
+
 </html>
